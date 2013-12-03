@@ -121,6 +121,7 @@ function install_s3cmd_cli() {
     tar zxf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" -C "$target/vendor/s3cmd/bin/"
     rm -Rf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" 
 
+    export PATH="/app/vendor/s3cmd/bin:$PATH"
 }
 
 function install_node_deps() {
