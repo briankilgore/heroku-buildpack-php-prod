@@ -4,8 +4,6 @@ set -e
 set -o pipefail
 shopt -s dotglob
 
-alias ll='ls -alG'
-
 basedir="$( cd -P "$( dirname "$0" )" && pwd )"
 source "$basedir/../conf/buildpack.conf"
 source $basedir/common.sh
@@ -358,6 +356,8 @@ fi
 install_node_deps "$BUILD_DIR"
 install_composer_deps "$BUILD_DIR"
 install_s3cmd_cli "$BUILD_DIR"
+
+echo -e '#!/bin/bash\nls -alG' > "$BUILD_DIR/vendor/bin"
 
 if [ -n "$COMPILE_CMD" ]; then
     status "Running compile commands"
