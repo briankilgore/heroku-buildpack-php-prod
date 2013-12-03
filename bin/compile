@@ -118,8 +118,8 @@ function install_s3cmd_cli() {
 
     cp "$CACHE_DIR/s3cmd_cli.tar.gz" "$target/vendor/s3cmd/bin/"
 
-    tar zxvf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" -C "$target/vendor/s3cmd/bin/"
-    #rm -Rf s3cmd_cli.tar.gz 
+    tar zxf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" -C "$target/vendor/s3cmd/bin/"
+    rm -Rf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" 
 
 }
 
