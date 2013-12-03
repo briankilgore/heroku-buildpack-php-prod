@@ -116,7 +116,7 @@ function install_s3cmd_cli() {
         echo "$checksum" > $CACHE_DIR/s3cmd_cli.md5
     fi
 
-    cp "$CACHE_DIR/aws_cli.tar.gz" "$target/vendor/s3cmd/bin/"
+    cp "$CACHE_DIR/s3cmd_cli.tar.gz" "$target/vendor/s3cmd/bin/"
 
     cd "$target/vendor/s3cmd/bin/"
     tar zxvf s3cmd_cli.tar.gz
