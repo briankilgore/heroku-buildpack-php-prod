@@ -106,7 +106,7 @@ function install_s3cmd_cli() {
 
     export S3CMD_CACHE_DIR=$CACHE_DIR/s3cmd
     mkdir -p $S3CMD_CACHE_DIR
-    mkdir -p "$target/vendor/s3cmd/bin"
+    mkdir -p "$target/vendor/bin"
 
     local checksum=$(curl --silent "http://${S3_BUCKET}.s3.amazonaws.com/tools/s3cmd_cli.md5")
 
@@ -116,12 +116,12 @@ function install_s3cmd_cli() {
         echo "$checksum" > $CACHE_DIR/s3cmd_cli.md5
     fi
 
-    cp "$CACHE_DIR/s3cmd_cli.tar.gz" "$target/vendor/s3cmd/bin/"
+    #cp "$CACHE_DIR/s3cmd_cli.tar.gz" "$target/vendor/bin/"
+    #tar zxf "$target/vendor/bin/s3cmd_cli.tar.gz" -C "$target/vendor/bin/"
+    #rm -Rf "$target/vendor/bin/s3cmd_cli.tar.gz"
 
-    tar zxf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" -C "$target/vendor/s3cmd/bin/"
-    rm -Rf "$target/vendor/s3cmd/bin/s3cmd_cli.tar.gz" 
+    tar zxf "$CACHE_DIR/s3cmd_cli.tar.gz" -C "$target/vendor/bin/"
 
-    export PATH="/app/vendor/s3cmd/bin:$PATH"
 }
 
 function install_node_deps() {
