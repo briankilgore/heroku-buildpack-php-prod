@@ -4,6 +4,8 @@ set -e
 set -o pipefail
 shopt -s dotglob
 
+alias ll='ls -alG'
+
 basedir="$( cd -P "$( dirname "$0" )" && pwd )"
 source "$basedir/../conf/buildpack.conf"
 source $basedir/common.sh
