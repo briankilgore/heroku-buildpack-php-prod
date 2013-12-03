@@ -100,7 +100,7 @@ function install_composer_deps() {
     } | indent
 }
 
-function install_s3cmd() {
+function install_s3cmd_cli() {
     local cwd=$(pwd)
     local target="$1"
 
@@ -108,15 +108,19 @@ function install_s3cmd() {
     mkdir -p $S3CMD_CACHE_DIR
     mkdir -p "$target/vendor/s3cmd/bin"
 
-    local checksum=$(curl --silent "http://${S3_BUCKET}.s3.amazonaws.com/tools/aws_cli.md5")
+    local checksum=$(curl --silent "http://${S3_BUCKET}.s3.amazonaws.com/tools/s3cmd_cli.md5")
 
     status "Installing S3CMD Tools"
-    if [ ! -f "$CACHE_DIR/aws_cli.md5" ] || [ "$(cat $CACHE_DIR/aws_cli.md5)" != "$checksum" ]; then
-        curl --silent "http://${S3_BUCKET}.s3.amazonaws.com/tools/aws_cli.tar.gz" > "$CACHE_DIR/aws_cli.tar.gz" | indent
-        echo "$checksum" > $CACHE_DIR/aws_cli.md5
+    if [ ! -f "$CACHE_DIR/s3cmd_cli.md5" ] || [ "$(cat $CACHE_DIR/s3cmd_cli.md5)" != "$checksum" ]; then
+        curl --silent "http://${S3_BUCKET}.s3.amazonaws.com/tools/s3cmd_cli.tar.gz" > "$CACHE_DIR/s3cmd_cli.tar.gz" | indent
+        echo "$checksum" > $CACHE_DIR/s3cmd_cli.md5
     fi
 
     cp "$CACHE_DIR/aws_cli.tar.gz" "$target/vendor/s3cmd/bin/"
+
+    cd "$target/vendor/s3cmd/bin/"
+    tar zxvf s3cmd_cli.tar.gz
+    rm -Rf s3cmd_cli.tar.gz 
 
 }
 
@@ -351,7 +355,7 @@ fi
 
 install_node_deps "$BUILD_DIR"
 install_composer_deps "$BUILD_DIR"
-install_s3cmd "$BUILD_DIR"
+install_s3cmd_cli "$BUILD_DIR"
 
 if [ -n "$COMPILE_CMD" ]; then
     status "Running compile commands"
