@@ -218,6 +218,7 @@ function package_nginx_version() {
 }
 
 function package_php_version() {
+    cat "$BUILD_DIR/composer.json"
     jq --raw-output ".extra.heroku.engines.php // \"default\"" < "$BUILD_DIR/composer.json"
 }
 
