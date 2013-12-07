@@ -1,10 +1,9 @@
+# Default configuration for non-framework apps
 root /app;
-index index.php;
 
 location ~ \.php {
-    fastcgi_pass php;
     include fastcgi_params;
+    fastcgi_param  SCRIPT_FILENAME    $fastcgi_script_name;
+    fastcgi_pass php;
     fastcgi_buffers 256 4k;
-    #uncomment when running via https
-    #fastcgi_param HTTPS on;
 }
