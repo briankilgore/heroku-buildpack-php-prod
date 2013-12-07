@@ -1,0 +1,24 @@
+root /app;
+
+#site root
+location = / {
+    index index.php;
+}
+
+location = /<%= ENV['DOCUMENT_ROOT'] %> {
+    try_files $uri /api/<%= ENV['INDEX_DOCUMENT'] %>;
+}
+
+#return 404 for all php files as we do have a front controller
+location ~ /api/(?!<%= ENV['INDEX_DOCUMENT'] %>)(.*)\.php$ {
+    return 404;
+}
+
+location ~ \.php$ {
+    fastcgi_pass php;
+    fastcgi_index index.php;
+    include fastcgi_params;
+    fastcgi_buffers 256 4k;
+    #uncomment when running via https
+    #fastcgi_param HTTPS on;
+}
