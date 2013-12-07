@@ -5,7 +5,7 @@ location = / {
     index index.php;
 }
 
-location = /<%= ENV['DOCUMENT_ROOT'] %> {
+location /<%= ENV['DOCUMENT_ROOT'] %> {
     try_files $uri /api/<%= ENV['INDEX_DOCUMENT'] %>;
 }
 
