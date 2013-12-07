@@ -6,7 +6,7 @@ location /<%= ENV['DOCUMENT_ROOT'] %> {
 }
 
 #return 404 for all php files as we do have a front controller
-location ~ /api/(?!<%= ENV['INDEX_DOCUMENT'] %>)(.*)\.php$ {
+location ~ /<%= ENV['DOCUMENT_ROOT'] %>/(?!<%= ENV['INDEX_DOCUMENT'] %>)(.*)\.php$ {
     return 404;
 }
 
