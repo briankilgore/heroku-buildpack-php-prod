@@ -26,6 +26,6 @@ case "$1" in
         ;;
     compile)
         echo "-----> Setting up Tonic app"
-        cp "$basedir/../conf/nginx/tonic.conf.erb" "$BUILD_DIR/conf/site.conf.erb"
+        cp "$basedir/../conf/nginx/silex.conf.erb" "$BUILD_DIR/conf/site.conf.erb"
         ;;
 esac
