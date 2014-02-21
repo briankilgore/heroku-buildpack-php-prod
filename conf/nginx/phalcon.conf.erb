@@ -6,19 +6,18 @@ location = / {
 }
 
 #all other locations try other files first and go to our front controller if none of them exists
-location / {
-    try_files $uri $uri/ @site;
+location /api {
+    rewrite /api(.*)$ /api/router.php?_url=$1 last;
 }
 
 #return 404 for all php files as we do have a front controller
-location ~ \.php$ {
+location ~ /api/(?!router.php)(.*)\.php$ {
     return 404;
 }
 
 location @site {
     fastcgi_pass php;
     include fastcgi_params;
-    fastcgi_param  SCRIPT_FILENAME $document_root/<%= ENV['INDEX_DOCUMENT'] %>;
     fastcgi_buffers 256 4k;
     #uncomment when running via https
     #fastcgi_param HTTPS on;

@@ -23,9 +23,9 @@ http {
     }
 
     <% if ENV.has_key? "INDEX_DOCUMENT" and ENV['INDEX_DOCUMENT'].to_s != "" %>
-    index <%= ENV['INDEX_DOCUMENT'] %> index.html index.htm index.xhtml;
+    index <%= ENV['INDEX_DOCUMENT'] %> index.php index.html index.htm index.xhtml;
     <% else %>
-    index index.html index.htm index.xhtml;
+    index index.php index.html index.htm index.xhtml;
     <% end %>
 
     include mime.types;
