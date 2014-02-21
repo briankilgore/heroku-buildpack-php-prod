@@ -1,9 +1,4 @@
-root /app/<%= ENV['DOCUMENT_ROOT'] %>;
-
-#site root is redirected to the app boot script
-location = / {
-    try_files @site @site;
-}
+root /app;
 
 #all other locations try other files first and go to our front controller if none of them exists
 location /api {
@@ -17,6 +12,7 @@ location ~ /api/(?!router.php)(.*)\.php$ {
 
 location @site {
     fastcgi_pass php;
+    fastcgi_index index.php;
     include fastcgi_params;
     fastcgi_buffers 256 4k;
     #uncomment when running via https
