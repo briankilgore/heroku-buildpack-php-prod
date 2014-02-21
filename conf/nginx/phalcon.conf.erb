@@ -1,20 +1,31 @@
-root /app;
+server {
+    listen       80;
+    server_name  localhost;
 
-#all other locations try other files first and go to our front controller if none of them exists
-location /api {
-    rewrite /api(.*)$ /api/router.php?_url=$1 last;
-}
+    root /app;
+    index index.php;
 
-#return 404 for all php files as we do have a front controller
-location ~ /api/(?!router.php)(.*)\.php$ {
-    return 404;
-}
+    #charset koi8-r;
 
-location @site {
-    fastcgi_pass php;
-    fastcgi_index index.php;
-    include fastcgi_params;
-    fastcgi_buffers 256 4k;
-    #uncomment when running via https
-    #fastcgi_param HTTPS on;
+    #access_log  logs/host.access.log  main;
+
+    location /api {
+        rewrite /api(.*)$ /api/router.php?_url=$1 last;
+    }
+
+    #return 404 for all php files inside /api except for our front controller
+    location ~ /api/(?!router.php)(.*)\.php$ {
+        return 404;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass php;
+        fastcgi_index index.php;
+        #include fastcgi.conf;
+        #fastcgi_buffers 256 4k;
+        #include fastcgi_params;
+        #fastcgi_param HTTPS on;
+        fastcgi_intercept_errors on;
+    }
+
 }

@@ -1,9 +1,21 @@
-# Default configuration for non-framework apps
-root /app/<%= ENV['DOCUMENT_ROOT'] %>;
+server {
+    listen       80;
+    server_name  localhost;
 
-location ~ \.php {
-    include fastcgi_params;
-    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
-    fastcgi_pass php;
-    fastcgi_buffers 256 4k;
+    root /app;
+    index index.php;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+
+    # Default configuration for non-framework apps
+    root /app/<%= ENV['DOCUMENT_ROOT'] %>;
+    
+    location ~ \.php {
+        include fastcgi_params;
+        fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+        fastcgi_pass php;
+        fastcgi_buffers 256 4k;
+    }
 }
