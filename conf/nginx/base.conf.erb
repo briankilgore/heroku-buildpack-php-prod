@@ -1,21 +1,18 @@
-worker_processes  auto;
-#daemon off;
-
-#error_log  logs/error.log;
-#error_log  logs/error.log  notice;
-#error_log  logs/error.log  info;
-
-#pid        logs/nginx.pid;
-
+<% require "shellwords" %>
+worker_processes auto;
+daemon off;
 
 events {
     worker_connections  1024;
 }
-
-
 http {
-    include       mime.types;
-    default_type  application/octet-stream;
+    sendfile    on;
+    tcp_nopush  on;
+
+    keepalive_timeout  65;
+
+    error_log logs/error.log notice;
+    access_log logs/access.log;
 
     client_max_body_size 100m;
     client_body_timeout 600s;
@@ -25,21 +22,22 @@ http {
         keepalive 16;
     }
 
-    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+    <% if ENV.has_key? "INDEX_DOCUMENT" and ENV['INDEX_DOCUMENT'].to_s != "" %>
+    index <%= ENV['INDEX_DOCUMENT'] %> index.php index.html index.htm index.xhtml;
+    <% else %>
+    index index.php index.html index.htm index.xhtml;
+    <% end %>
 
-    #access_log  logs/access.log  main;
+    include mime.types;
 
-    sendfile        on;
-    #tcp_nopush     on;
+    server {
+        server_name localhost;
+        listen <%= ENV['PORT'] %>;
 
-    #keepalive_timeout  0;
-    keepalive_timeout  65;
+        include site.conf;
 
-    #gzip  on;
-
-    include site.conf;
-
-
+        <% Shellwords.split(ENV['NGINX_INCLUDES'].to_s).each do |f| %>
+        include /app/<%= f %>;
+        <% end %>
+    }
 }
