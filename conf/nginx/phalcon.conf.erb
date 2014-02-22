@@ -1,5 +1,11 @@
 root /app/<%= ENV['DOCUMENT_ROOT'] %>;
 
+location / {
+    root /app;
+    index index.php;
+    autoindex on;
+}
+
 #all other locations try other files first and go to our front controller if none of them exists
 location /api {
     rewrite /api(.*)$ /api/router.php?_url=$1 last;
