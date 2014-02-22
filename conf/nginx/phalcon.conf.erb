@@ -1,9 +1,9 @@
 root /app/<%= ENV['DOCUMENT_ROOT'] %>;
 
 #all other locations try other files first and go to our front controller if none of them exists
-location /api {
-    rewrite /api(.*)$ /api/router.php?_url=$1 last;
-}
+#location /api {
+#    rewrite /api(.*)$ /api/router.php?_url=$1 last;
+#}
 
 #return 404 for all php files as we do have a front controller
 location ~ /api/(?!router.php)(.*)\.php$ {
