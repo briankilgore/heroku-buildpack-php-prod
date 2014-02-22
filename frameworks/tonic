@@ -1,0 +1,31 @@
+#!/bin/bash
+
+BUILD_DIR="$2"
+basedir="$( cd -P "$( dirname "$0" )" && pwd )"
+
+function requires_tonic() {
+    [ $(jq --raw-output '.require["peej/tonic"]' < "$BUILD_DIR/composer.json") != "null" ]
+}
+
+function sets_framework_tonic() {
+    [ $(jq --raw-output '.extra.heroku.framework' < "$BUILD_DIR/composer.json") == "tonic" ]
+}
+
+case "$1" in
+    detect)
+        if [ ! -f "$BUILD_DIR/composer.json" ]; then
+            exit 1
+        fi
+
+        if requires_tonic || sets_framework_tonic; then
+            echo "-----> Detected Tonic app"
+            exit 0
+        else
+            exit 1
+        fi
+        ;;
+    compile)
+        echo "-----> Setting up Tonic app"
+        cp "$basedir/../conf/nginx/tonic.conf.erb" "$BUILD_DIR/conf/site.conf.erb"
+        ;;
+esac
