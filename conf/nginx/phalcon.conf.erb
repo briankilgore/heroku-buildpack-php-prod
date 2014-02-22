@@ -1,4 +1,5 @@
 root /app/<%= ENV['DOCUMENT_ROOT'] %>;
+index index.php
 
 #all other locations try other files first and go to our front controller if none of them exists
 location /api {
@@ -14,7 +15,7 @@ location ~ \.php {
     fastcgi_pass php;
     include fastcgi_params;
     fastcgi_buffers 256 4k;
-    fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    #fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     #uncomment when running via https
     #fastcgi_param HTTPS on;
 }
