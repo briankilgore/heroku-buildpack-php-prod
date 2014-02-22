@@ -1,10 +1,5 @@
 root /app/<%= ENV['DOCUMENT_ROOT'] %>;
 
-#site root is redirected to the app boot script
-location = / {
-    try_files @site @site;
-}
-
 #all other locations try other files first and go to our front controller if none of them exists
 location /api {
     rewrite /api(.*)$ /api/router.php?_url=$1 last;
@@ -15,7 +10,7 @@ location ~ /api/(?!router.php)(.*)\.php$ {
     return 404;
 }
 
-location @site {
+location ~ \.php {
     fastcgi_pass php;
     include fastcgi_params;
     fastcgi_buffers 256 4k;
