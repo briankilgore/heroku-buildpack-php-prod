@@ -16,7 +16,6 @@ make install
 
 cat << EOF > "$PREFIX/etc/conf.d/apc.ini"
 extension="apc.so"
-
 [apc]
 apc.stat = "0"
 apc.max_file_size = "1M"
