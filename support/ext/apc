@@ -12,7 +12,7 @@ cd APC-${apc_version}
 
 make
 make install
-echo "extension=apc.so" > "$PREFIX/etc/conf.d/apc.ini"
+#echo "extension=apc.so" > "$PREFIX/etc/conf.d/apc.ini"
 
 cat << EOF > "$PREFIX/etc/conf.d/apc.ini"
 extension="apc.so"
