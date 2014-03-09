@@ -42,5 +42,4 @@ apc.stat_ctime="0"
 ;As you must clear the APC cache to recompile already cached files.
 ;If you are still developing, set this to 1.
 apc.stat="0"
-
 EOF
