@@ -269,6 +269,7 @@ PHP_INCLUDES=
 COMPILE_CMD=
 NGINX_INCLUDES=
 NEWRELIC_VERSION=4.0.5.18
+MEMCACHED_VERSION=1.4.17
 
 # Read config variables from composer.json if it exists
 if [ -f "$BUILD_DIR/composer.json" ]; then
@@ -303,11 +304,15 @@ fi
 
 VENDORED_NGINX=/app/vendor/nginx
 VENDORED_PHP=/app/vendor/php
+VENDORED_MEMCACHED=/app/vendor/memcached
 
 [ ! -d "$BUILD_DIR/vendor" ] && mkdir -p "$BUILD_DIR/vendor"
 
 status "Bundling NGINX ${NGINX_VERSION}"
 fetch_engine_package nginx "$NGINX_VERSION" /app/vendor/nginx | indent
+
+status "Bundling MEMCACHED ${MEMCACHED_VERSION}"
+fetch_engine_package memcached "$MEMCACHED_VERSION" /app/vendor/memcached | indent
 
 status "Bundling PHP ${PHP_VERSION}"
 
