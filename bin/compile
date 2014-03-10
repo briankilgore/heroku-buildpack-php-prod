@@ -412,6 +412,7 @@ mv /app/vendor/libmcrypt vendor/libmcrypt
 mv /app/vendor/libicu vendor/libicu
 mv /app/vendor/nginx vendor/nginx
 mv /app/vendor/php vendor/php
+mv /app/vendor/memcached vendor/memcached
 
 mkdir -p "bin"
 
