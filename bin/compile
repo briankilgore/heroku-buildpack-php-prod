@@ -327,7 +327,7 @@ fetch_engine_package php "$PHP_VERSION" /app/vendor/php | indent
 test ! -d ".profile.d" && mkdir -p .profile.d || true
 
 cat > ".profile.d/php.sh" <<SH
-export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/app/bin:/app/vendor/nginx/sbin:/app/vendor/php/sbin:/app/vendor/php/bin:/app/vendor/bin:\$PATH
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/app/bin:/app/vendor/nginx/sbin:/app/vendor/php/sbin:/app/vendor/php/bin:/app/vendor/memcached/bin:/app/vendor/bin:\$PATH
 SH
 
 source ".profile.d/php.sh"
@@ -460,6 +460,11 @@ touch /app/vendor/php/var/log/error.log
 (
     nginx -p "/app/vendor/nginx" -c /app/vendor/nginx/conf/nginx.conf
     \$pmsgr < "nginx"
+)&
+
+(
+    memcached
+    \$pmsgr < "memcached"
 )&
 
 read exitproc <\$pmsgr
