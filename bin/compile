@@ -468,7 +468,7 @@ touch /app/vendor/php/var/log/error.log
     /app/vendor/memcached/bin/memcached -l 0.0.0.0
 #    \$pmsgr < "memcached"
 )&
-
+ps aux
 read exitproc <\$pmsgr
 echo "Boot failed: \$exitproc"
 exit 1
