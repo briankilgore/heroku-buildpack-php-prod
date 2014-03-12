@@ -463,10 +463,10 @@ touch /app/vendor/php/var/log/error.log
     \$pmsgr < "nginx"
 )&
 
-(
-    memcached
-    \$pmsgr < "memcached"
-)&
+#(
+    memcached -d
+#    \$pmsgr < "memcached"
+#)&
 
 read exitproc <\$pmsgr
 echo "Boot failed: \$exitproc"
