@@ -454,19 +454,18 @@ touch /app/vendor/php/var/log/error.log
 )&
 
 (
-    php-fpm -p "/app/vendor/php"
+    exec php-fpm -p "/app/vendor/php"
     \$pmsgr < "php-fpm"
 )&
 
 (
-    nginx -p "/app/vendor/nginx" -c /app/vendor/nginx/conf/nginx.conf
+    exec nginx -p "/app/vendor/nginx" -c /app/vendor/nginx/conf/nginx.conf
     \$pmsgr < "nginx"
 )&
 
 (
     echo "Starting memcached service"
-    /app/vendor/memcached/bin/memcached -l 0.0.0.0
-ps aux
+    exec /app/vendor/memcached/bin/memcached -l 0.0.0.0
 #    \$pmsgr < "memcached"
 )&
 
