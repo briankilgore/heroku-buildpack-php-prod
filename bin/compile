@@ -464,7 +464,7 @@ touch /app/vendor/php/var/log/error.log
 )&
 
 #(
-    memcached -d
+    memcached -d -l 0.0.0.0
 #    \$pmsgr < "memcached"
 #)&
 
